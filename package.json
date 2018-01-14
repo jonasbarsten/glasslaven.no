@@ -1,0 +1,15 @@
+{
+  "name": "glasslaven",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.26.0",
+    "meteor-node-stubs": "^0.3.2"
+  },
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jonas Barsten",
+  "license": "MIT"
+}
