@@ -1,0 +1,112 @@
+/****** PLACE YOUR CUSTOM STYLES HERE ******/
+
+.bg-primary {
+	color: #86c8bc;
+	background: #86c8bc !important;
+}
+
+a {
+	color: #86c8bc;
+}
+
+#aboutSection .row {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+  flex-wrap: wrap;
+}
+
+#aboutSection .row > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-header {
+	height: 65px;
+}
+
+.navbar-toggle {
+	margin-top: 17px;
+}
+
+.navbar-toggle .icon-bar {
+	background-color: darkgrey;
+}
+
+.hover {
+	cursor: pointer;
+}
+
+.btn {
+	color: white;
+	border: 2px solid #86c8bc;
+}
+
+.btn:hover {
+	background: #86c8bc;
+}
+
+.label {
+	background: #86c8bc;
+}
+
+.feature-2.filled i {
+	background: #86c8bc;
+}
+
+.feature-2 i {
+	border: 1px solid #fff;
+}
+
+#banner-custom {
+	padding-bottom: 0;
+	padding-top: 0;
+}
+
+#banner-custom img {
+	min-width: 100%;
+}
+
+#lightbox {
+	display: none;
+}
+
+/*Fix artist-boxes on home-page so they line up*/
+
+.feature h4 {
+	font-size: 12px;
+}
+
+#bannerSection {
+	padding: 50px 0 50px 0;
+}
+
+.pageContent p {
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 28px;
+	text-align: left !important;
+}
+
+#welcomeTextSection {
+	padding: 96px 0 0 0;
+}
+
+#newsSection img {
+	min-width: 100%;
+}
+
+@media all and (max-width: 767px) {
+	.pageContent p {
+		font-size: 13px;
+    	line-height: 24px;
+	}
+}
+
+
+/*ADMIN*/
+
+#login-buttons {
+	padding: 18px;
+}
