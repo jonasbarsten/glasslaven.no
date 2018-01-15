@@ -18,6 +18,19 @@ Meteor.methods({
 		const isAdmin = Roles.userIsInRole(Meteor.userId(), ['super-admin', 'admin'], 'CMS');
 
 		if (isAdmin) {
+
+			const artist = Artists.findOne({_id: artistId}, {fields: {images: 1, image: 1}});
+
+			// Trash profile picture
+			Meteor.call('file.toTrash', artist.image, 'image');
+
+			if (artist.images) {
+				artist.images.map((image) => {
+					// Trash all artist images
+					Meteor.call('file.toTrash', image, 'image');
+				});
+			};
+
 			Artists.remove({_id: artistId});
 		}
 
