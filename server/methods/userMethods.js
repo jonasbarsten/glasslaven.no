@@ -30,8 +30,8 @@ Meteor.methods({
 				// Send invite
 				Email.send({
 					to: email,
-					from: 'Brygg WEB<no-reply@brygg.no>',
-					subject: 'Brygg WEB // Admin invite',
+					from: 'Glasslåven WEB<no-reply@glasslaven.no>',
+					subject: 'Glasslåven WEB // Admin invite',
 					html: SSR.render( 'inviteEmail', {
 						url: Meteor.settings.public.url + '/login/invite/' + token + '?email=' + email
 					})

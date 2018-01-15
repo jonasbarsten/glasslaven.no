@@ -54,20 +54,31 @@ class Home extends Component {
 			}
 		];
 
-		const cover = (this.state.coverUrl) ?
-				<section id="banner-custom">
-					<div>
-						<img alt="image of glasslaven" src={this.state.coverUrl} />
-					</div>
-				</section> :
-				null;
+
+		const bannerStyle = {
+			backgroundImage: `url(${this.state.coverUrl})`,
+			backgroundSize: 'cover'
+		};
+
+		const containerStyle = {
+			backgroundColor: 'rgba(255,255,255,0.9)',
+			paddingTop: '30px',
+			paddingBottom: '30px',
+		}
+
+		// const cover = (this.state.coverUrl) ?
+		// 		<section id="banner-custom">
+		// 			<div>
+		// 				<img alt="image of glasslaven" src={this.state.coverUrl} />
+		// 			</div>
+		// 		</section> :
+		// 		null;
 
 		return (
 			<div>	
-				{cover}
 
-				<section id="welcomeTextSection">
-					<div className="container">
+				<section id="welcomeTextSection" style={bannerStyle}>
+					<div className="container" style={containerStyle}>
 						<div className="row mb80 mb-xs-0">
 							<div className="col-md-8 col-md-offset-2 text-center">
 								<h1>
@@ -126,6 +137,66 @@ class Home extends Component {
 						</div>
 						<div className="row">
 							<ArtistList onClick="view" />
+						</div>
+					</div>
+				</section>
+
+				<section className="bg-primary">
+					<div className="container">
+						<div className="row">
+							<div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center overflow-hidden">
+								<h5 className="uppercase text-center fade-half mb64 mb-xs-32">
+									Takk til
+								</h5>
+								<div className="col-sm-6">
+									<ul>
+										<li>
+											<h6 className="uppercase mb8">Gran Kommune</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Sparebankstiftelsen Gran</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Norsk Kulturminnefond</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Riksantikvarens verdiskapningsprogram</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Oppland Fylkeskommune</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Norsk Kulturråd</h6>
+										</li>
+										
+									</ul>
+								</div>
+								<div className="col-sm-6">
+									<ul>
+										<li>
+											<h6 className="uppercase mb8">Innovasjon Norge</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Sparebank1 Ringerike</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Hadeland næringsfond</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">UNI-stiftelsen</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Eckbos legater</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">Bergesen-stifelsen</h6>
+										</li>
+										<li>
+											<h6 className="uppercase mb8">ENOVA</h6>
+										</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</section>

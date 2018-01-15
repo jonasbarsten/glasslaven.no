@@ -35,7 +35,7 @@ class Invite extends Component {
 					Meteor.call('deleteInvite', email);
 
 				} else {
-					Bert.alert('User invited', 'success', 'fa-smile-o');
+					Bert.alert('Bruker invitert', 'success', 'growl-bottom-right', 'fa-smile-o');
 		
 					this.setState({isLoading: false});
 					this.refs.email.value = "";

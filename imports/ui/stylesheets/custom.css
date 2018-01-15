@@ -128,6 +128,11 @@ a span {
 		font-size: 13px;
     	line-height: 24px;
 	}
+
+	#welcomeTextSection {
+		padding: 0;
+		margin-bottom: 0;
+	}
 }
 
 
