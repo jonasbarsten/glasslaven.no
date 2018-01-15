@@ -110,3 +110,11 @@ a {
 #login-buttons {
 	padding: 18px;
 }
+
+#login-layout {
+	margin-top: 50px;
+}
+
+#admin-layout .navbar-header {
+	height: 50px;
+}

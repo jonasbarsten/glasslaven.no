@@ -21,7 +21,7 @@ class AdminLayout extends Component {
 		);
 
 		return (
-			<div style={{backgroundColor: 'white'}}>
+			<div style={{backgroundColor: 'white'}} id="admin-layout">
 				<Helmet>
 					<title>{routeName}</title>
 				</Helmet>
