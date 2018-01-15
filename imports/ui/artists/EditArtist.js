@@ -4,8 +4,16 @@ import { browserHistory } from 'react-router';
 import swal from 'sweetalert2';
 
 import AwsUpload from '../utilities/AwsUpload';
+import Preloader from '../utilities/Preloader';
 
 class EditArtist extends Component {
+
+	constructor () {
+		super ();
+		this.state = {
+			uploading: false
+		}
+	}
 
 	changeName () {
 
@@ -76,6 +84,7 @@ class EditArtist extends Component {
 	}
 
 	uploadImage () {
+		this.setState({uploading: true});
 		$("#upload-artist-image").click();
 	}
 
@@ -86,6 +95,7 @@ class EditArtist extends Component {
 				console.log(err);
 			} else {
 				Bert.alert('Profilbilde endret', 'success', 'growl-bottom-right', 'fa-smile-o');
+				this.setState({uploading: false});
 			}
 		});
 	}
@@ -114,6 +124,7 @@ class EditArtist extends Component {
 	}
 
 	uploadWork () {
+		this.setState({uploading: true});
 		$("#upload-artist-work").click();
 	}
 
@@ -123,6 +134,7 @@ class EditArtist extends Component {
 				console.log(err);
 			} else {
 				Bert.alert('Bilde lagt til', 'success', 'growl-bottom-right', 'fa-smile-o');
+				this.setState({uploading: false});
 			}
 		});
 
@@ -154,9 +166,11 @@ class EditArtist extends Component {
 
 		const artist = this.props.artist;
 
-		if (!artist) {
-			return <h4>Loading</h4>
+		if (!artist || this.state.uploading) {
+			return <Preloader />
 		}
+
+		const images = (artist.images) ? artist.images : [];
 
 		return (
 			<div className="container">
@@ -185,11 +199,11 @@ class EditArtist extends Component {
 				<hr />
 
 				<div className="row">
-					<button onClick={this.uploadWork}className="btn btn-success col-xs-12">Legg til bilde!</button>
+					<button onClick={this.uploadWork.bind(this)}className="btn btn-success col-xs-12">Legg til bilde!</button>
 				</div>
 
 				<div className="row">
-					{artist.images.map((image) => {
+					{images.map((image) => {
 						return (
 							<div key={image} className="col-sm-4" onClick={this.deleteWork.bind(this, image)}>
 								<img className="img-responsive" src={`/images/${image}?size=300x300`} />
