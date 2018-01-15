@@ -20,3 +20,7 @@ Meteor.publish('images', function () {
 Meteor.publish('artists', function () {
 	return Artists.find();
 });
+
+Meteor.publish('menuItems', function () {
+	return MenuItems.find();
+});

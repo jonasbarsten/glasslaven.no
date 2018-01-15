@@ -38,7 +38,15 @@ Meteor.methods({
 	},
 	'event.getFacebookEvents': function () {
 
-		const url = `/${Meteor.settings.private.facebook.pageId}/events`;
+		const url = `/${Meteor.settings.private.facebook.pageId}/events?`;
+
+		const response = FB.api(url);
+
+		return response;
+	},
+	'event.getEventPhoto': function (eventId) {
+
+		let url = `/${eventId}?fields=cover`;
 
 		const response = FB.api(url);
 

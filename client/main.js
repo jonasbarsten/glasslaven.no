@@ -41,6 +41,10 @@ import Calendar from '../imports/ui/events/Calendar';
 import ArtistWrapper from '../imports/ui/artists/ArtistWrapper';
 import ArtistSingle from '../imports/ui/artists/ArtistSingle';
 import EditArtist from '../imports/ui/artists/EditArtist';
+import ArtistsFront from '../imports/ui/artists/ArtistsFront';
+
+// Menu Items
+import MenuItemsWrapper from '../imports/ui/menuItems/MenuItemsWrapper';
 
 
 // Redirect to '/' on logout, uses gwendall:accounts-helpers
@@ -100,6 +104,7 @@ const routes =
 			<Route name="PAGE" path="pages/:urlFriendlyName" component={PageSingle} />
 			<Route name="CALENDAR" path="calendar" component={Calendar} />
 			<Route name="ARTIST" path="artists/:artistId" component={ArtistSingle} />
+			<Route name="ARTISTS" path="artists" component={ArtistsFront} />
 		</Route>
 
 		<Route path="/admin" component={AdminLayout} onEnter={authenticate}>
@@ -110,6 +115,7 @@ const routes =
 			<Route name="EVENTS" path="events" component={AdminEvents} />
 			<Route name="ARTISTS" path="artists" component={ArtistWrapper} />
 			<Route name="EDIT ARTIST" path="artists/:artistId" component={EditArtist} />
+			<Route name="MENU ITEMS" path="menuItems" component={MenuItemsWrapper} />
 		</Route>
 
 		<Route path="/login" component={LoginLayout} onEnter={checkIfLoggedIn}>

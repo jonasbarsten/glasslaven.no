@@ -28,41 +28,43 @@ class EditPage extends Component {
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Yes, delete it!'
-		}).then(() => {
-			Meteor.call('page.delete', this.props.params.urlFriendlyName, (err, res) => {
-				if (err) {
-					console.log(err);
-					swal("Failed", "The Page could not be deleted.", "warning");
-				} else {
-					browserHistory.goBack();
-					Bert.alert('Page deleted', 'success', 'growl-bottom-right', 'fa-smile-o');
-				}
-			});
-		}).catch(swal.noop);
-	}
-
-	toggleInFooter(urlFriendlyName) {
-
-		Meteor.call('page.toggleInFooter', urlFriendlyName, (err, res) => {
-			if (err) {
-			} else {
-				if (res == 'added') {
-					Bert.alert('Added to menu', 'success', 'growl-bottom-right', 'fa-smile-o');
-				}
-
-				if (res == 'removed') {
-					Bert.alert('Removed from menu', 'success', 'growl-bottom-right', 'fa-smile-o');
-				}
+		}).then((result) => {
+			if (result.value) {
+				Meteor.call('page.delete', this.props.params.urlFriendlyName, (err, res) => {
+					if (err) {
+						console.log(err);
+						swal("Failed", "The Page could not be deleted.", "warning");
+					} else {
+						browserHistory.goBack();
+						Bert.alert('Page deleted', 'success', 'growl-bottom-right', 'fa-smile-o');
+					}
+				});
 			}
 		});
 	}
+
+	// toggleInFooter(urlFriendlyName) {
+
+	// 	Meteor.call('page.toggleInFooter', urlFriendlyName, (err, res) => {
+	// 		if (err) {
+	// 		} else {
+	// 			if (res == 'added') {
+	// 				Bert.alert('Added to menu', 'success', 'growl-bottom-right', 'fa-smile-o');
+	// 			}
+
+	// 			if (res == 'removed') {
+	// 				Bert.alert('Removed from menu', 'success', 'growl-bottom-right', 'fa-smile-o');
+	// 			}
+	// 		}
+	// 	});
+	// }
 
 	render() {
 
 		const page = this.props.page;
 		const name = (page && page.name);
 		const content = (page && page.content);
-		const isInFooter = (page && page.isInFooter);
+		// const isInFooter = (page && page.isInFooter);
 
 		if (!this.props.ready) {
 			return <Preloader />;
@@ -72,25 +74,13 @@ class EditPage extends Component {
 			<div className="container">
 				<h4>{name}</h4>
 				<hr />
-				<div className="checkbox">
-					<label>
-						<input							
-							type="checkbox" 
-							readOnly
-							checked={isInFooter}
-							onClick={() => this.toggleInFooter(page.urlFriendlyName)}
-						/>
-						In footer
-					</label>
-				</div>
-				<hr />
 				<BarstenEditor 
 					onChange={(editorState) => {this.saveContent(editorState)}} 
 					content={content}
 					maxImageSize={'800x400'}
 				/>
 				<hr />
-				<button className="btn btn-danger" onClick={this.deletePage.bind(this)}>Delete page</button>
+				<button className="btn btn-danger col-xs-12" onClick={this.deletePage.bind(this)}>Delete page</button>
 			</div>
 		);
 	}

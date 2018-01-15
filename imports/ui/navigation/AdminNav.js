@@ -21,7 +21,6 @@ class AdminNav extends Component {
 		const pagesActiveClass = (pathName == '/admin/pages') ? 'active' : '';
 		const eventsActiveClass = (pathName == '/admin/events') ? 'active' : '';
 		const artistsActiveClass = (pathName == '/admin/artists') ? 'active' : '';
-		// const cardsActiveClass = (pathName == '/admin/cards') ? 'active' : '';
 
 		return (
 			<nav className="navbar navbar-default">
@@ -40,7 +39,7 @@ class AdminNav extends Component {
 						<ul className="nav navbar-nav">
 							<li className={usersActiveClass}><Link to="/admin/users">Brukere</Link></li>
 							<li className={pagesActiveClass}><Link to="/admin/pages">Sider</Link></li>
-							<li className={eventsActiveClass}><Link to="/admin/events">Eventer</Link></li>
+							<li className={eventsActiveClass}><Link to="/admin/events">Kalender</Link></li>
 							<li className={artistsActiveClass}><Link to="/admin/artists">Kunstnere</Link></li>
 						</ul>
 

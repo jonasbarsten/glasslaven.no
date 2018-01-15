@@ -9,6 +9,15 @@ a {
 	color: #86c8bc;
 }
 
+a span {
+	color: #86c8bc !important;
+}
+
+.page-single-content {
+	margin-top: 50px;
+}
+
+#news-wapper .row,
 #aboutSection .row {
   display: -webkit-box;
   display: -webkit-flex;
@@ -17,10 +26,27 @@ a {
   flex-wrap: wrap;
 }
 
+#news-wrapper .row > [class*='col-'],
 #aboutSection .row > [class*='col-'] {
   display: flex;
   flex-direction: column;
 }
+
+#news-wrapper .btn {
+	color: #47b475;
+}
+
+#front-content {
+	padding: 0;
+}
+
+#front-navbar {
+	margin-bottom: 0;
+}
+
+/*#front-navbar .navbar-right {
+	height: 65px;
+}*/
 
 .navbar-header {
 	height: 65px;

@@ -11,7 +11,23 @@ class Calendar extends Component {
 	render () {
 		return (
 			<div id="calendar-wrapper" className="row">
-				<EventsList onClick='view' monthSeparator />
+				<section className="page-title page-title-4">
+					<div className="container">
+						<div className="row">
+							<div className="col-md-6">
+								<h3 className="uppercase mb0">Kalender</h3>
+							</div>
+						</div>
+					</div>
+				</section>
+				<section className="bg-secondary">
+					<div className="container">
+						<div className="row mb40">
+							<EventsList onClick='view' monthSeparator />
+						</div>
+					</div>
+				</section>
+				
 			</div>
 		);
 	}

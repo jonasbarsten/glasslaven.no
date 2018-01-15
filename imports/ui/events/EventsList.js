@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import 'moment/locale/nb.js';
+
+import Preloader from '../utilities/Preloader';
 
 moment.locale('nb');
 // import swal from 'sweetalert2';
@@ -27,9 +29,48 @@ class EventsList extends Component {
 			if (err) {
 				console.log(err);
 			} else {
-				this.setState({
-					events: res.data
-				});
+
+				let events = res.data;
+				let newEventsArray = []
+
+				const addImage = (event) => {
+
+					Meteor.call('event.getEventPhoto', event.id, (err, res) => {
+						if (err) {
+							console.log(err);
+						} else {
+							event.image = res;
+							newEventsArray.push(event);
+							events.shift();
+
+							if (events.length == 0) {
+								this.setState({
+									events: newEventsArray
+								});
+							} else {
+								addImage(events[0]);
+							}
+						}
+					});
+				}
+
+
+				addImage(events[0]);
+
+
+				
+
+				// events.map((event) => {
+				// 	Meteor.call('event.getEventPhoto', event.id, (err, res) => {
+				// 		if (err) {
+				// 			console.log(err);
+				// 		} else {
+				// 			event.image = res;
+				// 		}
+				// 	});
+				// });
+
+				
 			}
 		});
 	}
@@ -65,6 +106,10 @@ class EventsList extends Component {
 
 		let events = this.state.events;
 
+		if (events.length == 0) {
+			return <Preloader />
+		}
+
 		function compare(a,b) {
 		  if (a.start_time < b.start_time)
 		    return -1;
@@ -86,53 +131,90 @@ class EventsList extends Component {
 		}
 
 		return (
-			<div>
-				{events.map((event, i) => {
+			<div id="news-wrapper">
+				<div className="row">
+					{events.map((event, i) => {
 
-					// event.date = event.start_time;
+						// event.date = event.start_time;
 
-					const currentEventYear = moment(event.date).format('YYYY');
-					const currentEventMonth = moment(event.date).format('MM');
-					const previousEventMonth = (i > 0) ? moment(events[i - 1].date).format('MM') : 0;
-					const previousEventYear = (i > 0) ? moment(events[i - 1].date).format('YYYY') : 0;
+						const currentEventYear = moment(event.date).format('YYYY');
+						const currentEventMonth = moment(event.date).format('MM');
+						const previousEventMonth = (i > 0) ? moment(events[i - 1].date).format('MM') : 0;
+						const previousEventYear = (i > 0) ? moment(events[i - 1].date).format('YYYY') : 0;
 
-					const currentEventMonthSinceJesus = (currentEventYear * 12) + currentEventMonth;
-					const pastEventMonthSinceJesus = (previousEventYear * 12) + previousEventMonth;
+						const currentEventMonthSinceJesus = (currentEventYear * 12) + currentEventMonth;
+						const pastEventMonthSinceJesus = (previousEventYear * 12) + previousEventMonth;
 
-					const monthSeperatorWritten = moment(event.date).format('MMMM YYYY');
+						const monthSeperatorWritten = moment(event.date).format('MMMM YYYY');
 
-					const monthHeader = ((i == 0 || currentEventMonthSinceJesus < pastEventMonthSinceJesus) && this.props.monthSeparator) ? 
-						<div className="col-xs-12 text-center calendar-month-seperator">{monthSeperatorWritten}</div> 
-						: null;
+						const monthHeader = ((i == 0 || currentEventMonthSinceJesus < pastEventMonthSinceJesus) && this.props.monthSeparator) ? 
+							<div><div className="col-xs-12 text-center calendar-month-seperator"><h4>{monthSeperatorWritten}</h4></div><hr /></div> 
+							: null;
 
-					const odd = i % 2;
-					const colorClass = odd ? 'event-color-b' : 'event-color-a';
+						const odd = i % 2;
+						const colorClass = odd ? 'event-color-b' : 'event-color-a';
 
-					const date = moment(event.date).format('DD.MM');
+						const date = moment(event.date).format('DD.MM');
 
-					let name = event.name;
-					if (name.length > 25) name = name.substring(0,25) + ' ...';
+						const url = `https://facebook.com/events/${event.id}/`;
+						const imageUrl = event.image.cover.source;
+						const imageStyle = {
+							width: '100%',
+							height: '160px',
+							background: `url(${imageUrl})`,
+							backgroundSize: 'cover'
+						};
 
-					return (
-						<div key={event.id}>
-							{monthHeader}
-							<div className={`${colorClass} col-sm-4 event-item hover`} onClick={this.handleClick.bind(this, event)}>
-								<div className="event-item-content">
+						let name = event.name;
+						// if (name.length > 25) name = name.substring(0,25) + ' ...';
 
-									<div className="row">
-										<div style={{height: '50px', fontFamily: 'Plaak6Ney-26-Light'}} className="col-xs-6 col-sm-12 center-align-container">
-											<span style={{fontSize: '40px'}}>{date}</span>
-										</div>
-										<div style={{height: '50px', fontFamily: 'Plaak4Terme-24-Light'}} className="col-xs-6 col-sm-12 center-align-container">
-											<span style={{fontSize: '20px'}} className="text-center underline">{name}</span>
+						let description = event.description;
+						if (description.length > 100) description = description.substring(0,100) + ' ...';
+
+						return (
+							<div key={event.id}>
+								{monthHeader}
+								<div className="col-sm-4 post-snippet masonry-item">
+									<a href={url} target="self">
+										<div style={imageStyle}></div>
+									</a>
+									<div className="inner">
+										<a href={url} target="self">
+											<h5 className="mb0">
+												{name}
+											</h5>
+											<span className="inline-block mb16">{date}</span>
+										</a>
+										<hr />
+										<p>{description}</p>
+										<a className="btn btn-sm" href={url} target="self">Les mer</a>
+									</div>
+								</div>
+							</div>
+						);
+
+
+						return (
+							<div key={event.id}>
+								{monthHeader}
+								<div className={`${colorClass} col-sm-4 event-item hover`} onClick={this.handleClick.bind(this, event)}>
+									<div className="event-item-content">
+
+										<div className="row">
+											<div style={{height: '50px', fontFamily: 'Plaak6Ney-26-Light'}} className="col-xs-6 col-sm-12 center-align-container">
+												<span style={{fontSize: '40px'}}>{date}</span>
+											</div>
+											<div style={{height: '50px', fontFamily: 'Plaak4Terme-24-Light'}} className="col-xs-6 col-sm-12 center-align-container">
+												<span style={{fontSize: '20px'}} className="text-center underline">{name}</span>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					);
+						);
 
-				})}
+					})}
+				</div>
 			</div>
 		);
 

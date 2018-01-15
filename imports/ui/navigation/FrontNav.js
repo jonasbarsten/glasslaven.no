@@ -7,21 +7,22 @@ class AdminNav extends Component {
 
 		// Close menu when clicking links
 		$(document).on('click','.navbar-collapse.in',function(e) {
-		    if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
-		        $(this).collapse('hide');
-		    }
+				if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+						$(this).collapse('hide');
+				}
 		});
 	}
 
 	render () {
 
-		const pathName = this.props.pathName;
+		// const pathName = this.props.pathName;
 
-		const omActiveClass = (pathName == '/pages/about') ? 'active' : '';
-		const kalenderActiveClass = (pathName == '/calendar') ? 'active' : '';
-		const menyActiveClass = (pathName == '/menu') ? 'active' : '';
-		const reservasjonActiveClass = (pathName == '/pages/reservation') ? 'active' : '';
-		const brygglabActiveClass = (pathName == '/pages/brygglab') ? 'active' : '';
+		// const visitActiveClass = (pathName == '/pages/visit') ? 'active' : '';
+		// const contactActiveClass = (pathName == '/pages/contact') ? 'active' : '';
+		// const menyActiveClass = (pathName == '/menu') ? 'active' : '';
+		// const reservasjonActiveClass = (pathName == '/pages/reservation') ? 'active' : '';
+		// const brygglabActiveClass = (pathName == '/pages/brygglab') ? 'active' : '';
+		// const kalenderActiveClass = (pathName == '/pages/brygglab') ? 'active' : '';
 
 		return (
 			<nav id="front-navbar" className="navbar">
@@ -38,11 +39,33 @@ class AdminNav extends Component {
 
 					<div className="collapse navbar-collapse no-transition" id="bs-example-navbar-collapse-1">
 						<ul className="nav navbar-nav navbar-right">
-							<li className={omActiveClass}><Link to="/pages/om-brygg">BESØK</Link></li>
-							<li className={kalenderActiveClass}><Link to="/calendar">LEIE OG RESIDENS</Link></li>
-							<li className={menyActiveClass}><Link to="/menu">OM OSS</Link></li>
-							<li className={reservasjonActiveClass}><Link to="/reservations">NYHETER</Link></li>
-							<li className={reservasjonActiveClass}><Link to="/reservations">KONTAKT</Link></li>
+							<li><Link to="/pages/visit">BESØK</Link></li>
+
+							<li className="dropdown">
+								<Link className="dropdown-toggle" data-toggle="dropdown" to="#">LEIE OG RESIDENS
+									<span className="caret"></span>
+								</Link>
+								<ul className="dropdown-menu">
+									<li><Link to="/pages/studio">VERKSTED / STUDIO</Link></li>
+									<li><Link to="/pages/productionroom">PRODUKSJONSROM</Link></li>
+									<li><Link to="/pages/residency">RESIDENS / ANNEN UTLEIE</Link></li>
+								</ul>
+							</li>
+
+							<li className="dropdown">
+								<Link className="dropdown-toggle" data-toggle="dropdown" to="#">OM OSS
+									<span className="caret"></span>
+								</Link>
+								<ul className="dropdown-menu">
+									<li><Link to="/artists">VÅRE KUNSTNERE</Link></li>
+									<li><Link to="/pages/ecohouse">ØKOHUSET</Link></li>
+									<li><Link to="/pages/thearea">OMRÅDET</Link></li>
+									<li><Link to="/pages/friends">VENNEFORENING</Link></li>
+								</ul>
+							</li>
+
+							<li><Link to="/calendar">KALENDER</Link></li>
+							<li><Link to="/pages/contact">KONTAKT</Link></li>
 						</ul>
 					</div>
 				</div>
