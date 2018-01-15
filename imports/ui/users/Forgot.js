@@ -24,7 +24,7 @@ export default class Forgot extends Component {
 			if (err) {
 				Bert.alert(err.reason, 'danger', 'fa-frown-o');
 			} else {
-				Bert.alert('Reset email sendt', 'success', 'fa-smile-o');
+				Bert.alert('Reset email sendt', 'success', 'growl-bottom-right', 'fa-smile-o');
 				browserHistory.push('/login');
 			}
 		})
