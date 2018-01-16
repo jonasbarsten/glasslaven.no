@@ -15,12 +15,12 @@ class AdminNav extends Component {
 
 	render () {
 
-		const pathName = this.props.pathName;
+		// const pathName = this.props.pathName;
 
-		const usersActiveClass = (pathName == '/admin/users') ? 'active' : '';
-		const pagesActiveClass = (pathName == '/admin/pages') ? 'active' : '';
-		const eventsActiveClass = (pathName == '/admin/events') ? 'active' : '';
-		const artistsActiveClass = (pathName == '/admin/artists') ? 'active' : '';
+		// const usersActiveClass = (pathName == '/admin/users') ? 'active' : '';
+		// const pagesActiveClass = (pathName == '/admin/pages') ? 'active' : '';
+		// const eventsActiveClass = (pathName == '/admin/events') ? 'active' : '';
+		// const artistsActiveClass = (pathName == '/admin/artists') ? 'active' : '';
 
 		return (
 			<nav className="navbar navbar-default">
@@ -37,10 +37,11 @@ class AdminNav extends Component {
 
 					<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul className="nav navbar-nav">
-							<li className={usersActiveClass}><Link to="/admin/users">Brukere</Link></li>
-							<li className={pagesActiveClass}><Link to="/admin/pages">Sider</Link></li>
-							<li className={eventsActiveClass}><Link to="/admin/events">Kalender</Link></li>
-							<li className={artistsActiveClass}><Link to="/admin/artists">Kunstnere</Link></li>
+							<li><Link to="/admin/homePage">Forside</Link></li>
+							<li><Link to="/admin/users">Brukere</Link></li>
+							<li><Link to="/admin/pages">Sider</Link></li>
+							<li><Link to="/admin/events">Kalender</Link></li>
+							<li><Link to="/admin/artists">Kunstnere</Link></li>
 						</ul>
 
 						<ul className="nav navbar-nav navbar-right">
