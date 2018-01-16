@@ -34,6 +34,7 @@ import AdminDashboard from '../imports/ui/pages/AdminDashboard';
 import NewsWrapper from '../imports/ui/news/NewsWrapper';
 import NewsSingle from '../imports/ui/news/NewsSingle';
 import EditNews from '../imports/ui/news/EditNews';
+import NewsFront from '../imports/ui/news/NewsFront';
 
 // Users
 import UserWrapper from '../imports/ui/users/UserWrapper';
@@ -114,6 +115,7 @@ const routes =
 			<Route name="CALENDAR" path="calendar" component={Calendar} />
 			<Route name="ARTIST" path="artists/:artistId" component={ArtistSingle} />
 			<Route name="ARTISTS" path="artists" component={ArtistsFront} />
+			<Route name="NEWS" path="news" component={NewsFront} />
 		</Route>
 
 		<Route path="/admin" component={AdminLayout} onEnter={authenticate}>

@@ -15,8 +15,6 @@ export default class BarstenViewer extends Component {
 
 		const content = draftToHtml(this.props.content.editorState);
 
-		console.log(content);
-
 		return (
 			<div className="barsten-viewer">
 				<div className={this.props.className} dangerouslySetInnerHTML={{ __html: content }}></div>

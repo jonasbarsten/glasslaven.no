@@ -61,4 +61,7 @@ Meteor.methods({
 		
 		News.update({urlFriendlyName: urlFriendlyName}, {$set: {image: localImageId}});
 	},
+	'news.changeDate': function (newsId, date) {
+		News.update({_id: newsId}, {$set: {created: date}});
+	}
 });

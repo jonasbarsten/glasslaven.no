@@ -65,6 +65,7 @@ class AdminNav extends Component {
 							</li>
 
 							<li><Link to="/calendar">KALENDER</Link></li>
+							<li><Link to="/news">NYHETER</Link></li>
 							<li><Link to="/pages/contact">KONTAKT</Link></li>
 						</ul>
 					</div>

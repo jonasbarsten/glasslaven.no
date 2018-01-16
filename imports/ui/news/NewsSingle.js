@@ -38,7 +38,7 @@ class NewsSingle extends Component {
 				</div>
 				<div className="row">
 					<div className="col-sm-8 col-sm-offset-2">
-						<BarstenViewer key={news._id} content={news.content} placeholder='No content yet ...' className="page-single-content col-xs-12" />
+						<BarstenViewer content={news.content} placeholder='No content yet ...' className="page-single-content col-xs-12" />
 					</div>
 				</div>
 			</div>
