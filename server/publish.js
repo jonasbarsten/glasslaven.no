@@ -24,3 +24,7 @@ Meteor.publish('artists', function () {
 Meteor.publish('menuItems', function () {
 	return MenuItems.find();
 });
+
+Meteor.publish('config', function () {
+	return Config.find();
+});
