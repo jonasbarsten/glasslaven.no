@@ -74,7 +74,7 @@ class Home extends Component {
 			return <Preloader />
 		}
 
-		const imageUrl = (config.homePageBackgroundImage && config.homePageBackgroundImage.content) ? `/images/${config.homePageBackgroundImage.content}?size=1600x1200` : null;
+		const imageUrl = (config.homePageBackgroundImage && config.homePageBackgroundImage.content) ? `/images/${config.homePageBackgroundImage.content}?size=1200x800` : null;
 		const homePageText = (config.homePageText && config.homePageText.editorContent) ? config.homePageText.editorContent : null;
 
 		const bannerStyle = {

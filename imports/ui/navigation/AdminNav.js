@@ -38,10 +38,11 @@ class AdminNav extends Component {
 					<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 						<ul className="nav navbar-nav">
 							<li><Link to="/admin/homePage">Forside</Link></li>
-							<li><Link to="/admin/users">Brukere</Link></li>
-							<li><Link to="/admin/pages">Sider</Link></li>
+							<li><Link to="/admin/pages">Undersider</Link></li>
+							<li><Link to="/admin/news">Nyheter</Link></li>
 							<li><Link to="/admin/events">Kalender</Link></li>
 							<li><Link to="/admin/artists">Kunstnere</Link></li>
+							<li><Link to="/admin/users">Brukere</Link></li>
 						</ul>
 
 						<ul className="nav navbar-nav navbar-right">

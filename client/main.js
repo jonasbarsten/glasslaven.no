@@ -30,6 +30,11 @@ import EditPage from '../imports/ui/pages/EditPage';
 import AdminDashboard from '../imports/ui/pages/AdminDashboard';
 // import ReservationForm from '../imports/ui/reservations/ReservationForm';
 
+// News
+import NewsWrapper from '../imports/ui/news/NewsWrapper';
+import NewsSingle from '../imports/ui/news/NewsSingle';
+import EditNews from '../imports/ui/news/EditNews';
+
 // Users
 import UserWrapper from '../imports/ui/users/UserWrapper';
 
@@ -105,6 +110,7 @@ const routes =
 		<Route path="/" component={FrontLayout}>
 			<IndexRoute name="HOME" component={Home} />	
 			<Route name="PAGE" path="pages/:urlFriendlyName" component={PageSingle} />
+			<Route name="NEWS" path="news/:urlFriendlyName" component={NewsSingle} />
 			<Route name="CALENDAR" path="calendar" component={Calendar} />
 			<Route name="ARTIST" path="artists/:artistId" component={ArtistSingle} />
 			<Route name="ARTISTS" path="artists" component={ArtistsFront} />
@@ -115,6 +121,8 @@ const routes =
 			<Route name="USERS" path="users" component={UserWrapper} />
 			<Route name="PAGES" path="pages" component={PagesWrapper} />
 			<Route name="EDIT PAGE" path="pages/edit/:urlFriendlyName" component={EditPage} />
+			<Route name="NEWS" path="news" component={NewsWrapper} />
+			<Route name="EDIT NEWS" path="news/edit/:urlFriendlyName" component={EditNews} />
 			<Route name="EVENTS" path="events" component={AdminEvents} />
 			<Route name="ARTISTS" path="artists" component={ArtistWrapper} />
 			<Route name="EDIT ARTIST" path="artists/:artistId" component={EditArtist} />

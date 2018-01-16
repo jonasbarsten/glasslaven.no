@@ -104,6 +104,7 @@ class awsUpload extends Component {
 				}
 
 				if (this.props.postUploadFunction) {
+
 					this.props.postUploadFunction(file);
 				}
 
