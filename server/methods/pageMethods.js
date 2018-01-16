@@ -25,6 +25,9 @@ Meteor.methods({
 	'page.update': function (urlFriendlyName, content) {
 		Pages.update({urlFriendlyName: urlFriendlyName}, {$set: {content: content}});
 	},
+	'page.toggleOnline': function (page) {
+		Pages.update({_id: page._id}, {$set: {online: !page.online}});
+	},
 	'page.toggleInFooter': function (urlFriendlyName) {
 		const page = Pages.findOne({urlFriendlyName: urlFriendlyName});
 

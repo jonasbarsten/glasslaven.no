@@ -39,7 +39,7 @@ class NewsListFront extends Component {
 		});
 
 		if (this.props.limit) {
-			events = events.slice(0, this.props.limit);
+			news = news.slice(0, this.props.limit);
 		}
 
 		return (

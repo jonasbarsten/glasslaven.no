@@ -19,6 +19,9 @@ const PagesSchema = new SimpleSchema({
 		type: String,
 		optional: true
 	},
+	"online": {
+		type: Boolean
+	},
 	"urlFriendlyName": {
 		type: String,
 		optional: true

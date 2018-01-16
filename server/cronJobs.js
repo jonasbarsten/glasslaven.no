@@ -5,7 +5,7 @@ Meteor.startup(() => {
 	// Garbage collection
 
 	var emptyTrash = new cron.CronJob({
-		cronTime: '47 * * * *',
+		cronTime: '35 * * * *',
 		onTick: Meteor.bindEnvironment(function() {
 
 			// This method places artist-images in trash if they are not in pages FIXFIX

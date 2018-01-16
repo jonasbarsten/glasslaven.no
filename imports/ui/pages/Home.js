@@ -4,6 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 import ArtistList from '../artists/ArtistList';
 import Preloader from '../utilities/Preloader';
 import BarstenViewer from '../utilities/BarstenViewer';
+import NewsListFront from '../news/NewsListFront';
 
 class Home extends Component {
 
@@ -101,6 +102,32 @@ class Home extends Component {
 					</div>
 				</section>
 
+				<section id="newsSection" className="bg-primary">
+					<div className="container">
+						<div className="row mb64 mb-xs-24">
+							<div className="col-md-10 col-md-offset-1 col-sm-12 text-center">
+								<h3>Nyheter</h3>
+							</div>
+						</div>
+						<div className="row">
+							<NewsListFront onClick="view" limit={6}/>
+						</div>
+					</div>
+				</section>
+
+				<section id="artistsSection">
+					<div className="container">
+						<div className="row mb64 mb-xs-24">
+							<div className="col-md-10 col-md-offset-1 col-sm-12 text-center">
+								<h3>Våre Kunstnere</h3>
+							</div>
+						</div>
+						<div className="row">
+							<ArtistList onClick="view" />
+						</div>
+					</div>
+				</section>
+
 				<section id="aboutSection" className="pb64 pb-xs-40 bg-primary">
 					<div className="container">
 						
@@ -125,20 +152,9 @@ class Home extends Component {
 					
 				</section>
 
-				<section id="artistsSection">
-					<div className="container">
-						<div className="row mb64 mb-xs-24">
-							<div className="col-md-10 col-md-offset-1 col-sm-12 text-center">
-								<h3>Våre Kunstnere</h3>
-							</div>
-						</div>
-						<div className="row">
-							<ArtistList onClick="view" />
-						</div>
-					</div>
-				</section>
 
-				<section className="bg-primary">
+
+				<section>
 					<div className="container">
 						<div className="row">
 							<div className="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center overflow-hidden">

@@ -15,11 +15,6 @@ import BarstenEditor from '../utilities/BarstenEditorTwo';
 import Preloader from '../utilities/Preloader';
 import AwsUpload from '../utilities/AwsUpload';
 
-
-
-
-
-
 class EditNews extends Component {
 
 	constructor () {
@@ -110,7 +105,7 @@ class EditNews extends Component {
 		const content = (news && news.content);
 		// const isInFooter = (page && page.isInFooter);
 
-		if (!this.props.ready || this.state.loading) {
+		if (!this.props.ready || this.state.loading || !news) {
 			return <Preloader />;
 		}
 		const imageUrl = (news && news.image) ? `/images/${news.image}?size=300x300` : null;
