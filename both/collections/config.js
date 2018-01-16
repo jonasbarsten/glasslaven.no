@@ -19,14 +19,26 @@ const ConfigSchema = new SimpleSchema({
 		type: String
 	},
 	"content": {
-		type: String
+		type: String,
+		optional: true
+	},
+	"editorContent": {
+		type: Object,
+		optional: true,
+		blackbox: true
 	},
 	"createdDate": {
 		type: Date
 	},
 	"createdBy": {
 		type: String
-	}
+	},
+	"lastChanged": {
+		type: Date
+	},
+	"lastChangedBy": {
+		type: String
+	},
 });
 
 Config.attachSchema( ConfigSchema );

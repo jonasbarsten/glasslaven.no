@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { withTracker } from 'meteor/react-meteor-data';
 
 import ArtistList from '../artists/ArtistList';
+import Preloader from '../utilities/Preloader';
+import BarstenViewer from '../utilities/BarstenViewer';
 
 class Home extends Component {
 
@@ -55,16 +58,7 @@ class Home extends Component {
 		];
 
 
-		const bannerStyle = {
-			backgroundImage: `url(${this.state.coverUrl})`,
-			backgroundSize: 'cover'
-		};
 
-		const containerStyle = {
-			backgroundColor: 'rgba(255,255,255,0.9)',
-			paddingTop: '30px',
-			paddingBottom: '30px',
-		}
 
 		// const cover = (this.state.coverUrl) ?
 		// 		<section id="banner-custom">
@@ -74,6 +68,26 @@ class Home extends Component {
 		// 		</section> :
 		// 		null;
 
+		const config = this.props.config;
+
+		if (!this.props.ready) {
+			return <Preloader />
+		}
+
+		const imageUrl = (config.homePageBackgroundImage && config.homePageBackgroundImage.content) ? `/images/${config.homePageBackgroundImage.content}?size=1600x1200` : null;
+		const homePageText = (config.homePageText && config.homePageText.editorContent) ? config.homePageText.editorContent : null;
+
+		const bannerStyle = {
+			backgroundImage: `url(${imageUrl})`,
+			backgroundSize: 'cover'
+		};
+
+		const containerStyle = {
+			backgroundColor: 'rgba(255,255,255,0.9)',
+			paddingTop: '30px',
+			paddingBottom: '30px',
+		}
+
 		return (
 			<div>	
 
@@ -81,24 +95,7 @@ class Home extends Component {
 					<div className="container" style={containerStyle}>
 						<div className="row mb80 mb-xs-0">
 							<div className="col-md-8 col-md-offset-2 text-center">
-								<h1>
-									PRODUKSJONS- OG VISNINGSSTED FOR PROFESJONELL KUNST
-								</h1>
-								<p>
-									Glasslåven kunstsenter ligger på Granavollen på Hadeland og åpnet våren 2016. Den monumentale låven fra 1880-tallet er de siste årene restaurert og ombygd etter økologiske prinsipper. Den har blitt et pilotbygg der områdets bærekraft gjennom generasjoner har inspirert til framtidsrettede, miljøvennlige byggemetoder. Stall, høyloft og potetkjeller er erstattet med galleri, produksjons- og visningsrom, glasshytte og verksteder for fast og prosjektbasert leie. Kunstsenteret skal være et drivhus for høy kvalitet og profesjonalitet. Blant kunstnerne finner vi to markante nestorer i norsk kunsthåndverk; glasskunstner Ulla-Mari Brantenberg og smykkekunstner Toril Bjorg. Flere billedkunstnere, forfattere, en komponist og en musikalartist er også blant de som har sitt daglige arbeidsted på Glasslåven.
-								</p>
-								<h3>ÅPNINGSTIDER</h3>
-								<span>Lørdag og søndag 11 - 16</span>
-								<br />
-								<span>Sommeråpent tirsdag - søndag 11 - 16</span>
-								<br />
-								<br />
-								<span>Omvisninger kan avtales på forhånd.</span>
-								<br />
-								<br />
-								<span>Ta kontakt for leie av lokaler</span>
-								<br />
-								<a href="mailto:post@glasslaven.no">post@glasslaven.no</a>
+								<BarstenViewer content={homePageText} placeholder='No content yet ...' />
 							</div>
 						</div>
 					</div>
@@ -205,4 +202,22 @@ class Home extends Component {
 	}
 }
 
-export default Home;
+export default withTracker(() => {
+	const handle = Meteor.subscribe('config');
+
+	const config = {
+		homePageBackgroundImage: Config.findOne({name: 'homePageBackgroundImage'}),
+		homePageText: Config.findOne({name: 'homePageText'})
+	}
+
+	return {
+		config,
+		ready: handle.ready()
+	}
+
+})(Home);
+
+
+
+
+

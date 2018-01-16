@@ -46,6 +46,9 @@ import ArtistsFront from '../imports/ui/artists/ArtistsFront';
 // Menu Items
 import MenuItemsWrapper from '../imports/ui/menuItems/MenuItemsWrapper';
 
+// Home Page
+import HomePageWrapper from '../imports/ui/homePage/HomePageWrapper';
+
 
 // Redirect to '/' on logout, uses gwendall:accounts-helpers
 Accounts.onLogout(function() {
@@ -116,6 +119,7 @@ const routes =
 			<Route name="ARTISTS" path="artists" component={ArtistWrapper} />
 			<Route name="EDIT ARTIST" path="artists/:artistId" component={EditArtist} />
 			<Route name="MENU ITEMS" path="menuItems" component={MenuItemsWrapper} />
+			<Route name="HOME PAGE" path="homePage" component={HomePageWrapper} />
 		</Route>
 
 		<Route path="/login" component={LoginLayout} onEnter={checkIfLoggedIn}>
