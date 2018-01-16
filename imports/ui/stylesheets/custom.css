@@ -13,6 +13,13 @@ a span {
 	color: #86c8bc !important;
 }
 
+
+/*For BarstenViewer*/
+.barsten-viewer p {
+	min-height: 24px;
+}
+/*End for BarstenViewer*/
+
 .page-single-content {
 	margin-top: 50px;
 }
