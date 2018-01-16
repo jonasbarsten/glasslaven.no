@@ -7,7 +7,7 @@ class PagesWrapper extends Component {
 	render() {
 		return(
 			<div className="container">
-				<h4>Add page</h4>
+				<h4>Legg til underside</h4>
 				<AddPage />
 				<hr />
 				<ListPages />

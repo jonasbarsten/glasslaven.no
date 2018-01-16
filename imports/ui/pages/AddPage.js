@@ -10,17 +10,21 @@ class AddPage extends Component {
 
 	handleSubmit() {
 
-		Meteor.call('page.add', this.refs.name.value, this.refs.urlFriendlyName.innerHTML, (err, res) => {
-			if (err) {
-				console.log(err);
-			} else if (res == 'exists') {
-				Bert.alert('Page URL exists', 'warning', 'growl-bottom-right', 'fa-smile-o');
-			} else {
-				this.refs.name.value = '';
-				this.refs.urlFriendlyName.innerHTML = '';
-				Bert.alert('Page added', 'success', 'growl-bottom-right', 'fa-smile-o');
-			}
-		});
+		if (this.refs.name.value == '') {
+			Bert.alert('Du må gi siden et navn', 'success', 'growl-bottom-right', 'fa-smile-o');
+		} else {
+			Meteor.call('page.add', this.refs.name.value, this.refs.urlFriendlyName.innerHTML, (err, res) => {
+				if (err) {
+					console.log(err);
+				} else if (res == 'exists') {
+					Bert.alert('Page URL exists', 'warning', 'growl-bottom-right', 'fa-smile-o');
+				} else {
+					this.refs.name.value = '';
+					this.refs.urlFriendlyName.innerHTML = '';
+					Bert.alert('Page added', 'success', 'growl-bottom-right', 'fa-smile-o');
+				}
+			});
+		}
 	}
 
 	urlFriendly() {
@@ -39,7 +43,7 @@ class AddPage extends Component {
 
 					<div className="col-xs-8">
 						<input 
-							placeholder="Contact The Beatles"
+							placeholder="Kontakt oss"
 							type="text"
 							ref="name"
 							className="form-control"
@@ -48,7 +52,7 @@ class AddPage extends Component {
 					</div>
 
 					<div className="col-xs-4 text-right">
-						<button onClick={this.handleSubmit.bind(this)} className="btn btn-success">Add</button>
+						<button onClick={this.handleSubmit.bind(this)} className="btn btn-success">Legg til</button>
 					</div>
 
 				</div>
