@@ -1,15 +1,10 @@
 // REMEMBER: <meta charset="utf-8" /> to head in main html
 
-// TODO: implement on-the-fly resizing of images based on size given under import.
-// TODO: save after image upload.
 // TODO: Clean up toolbar.
-
 import React, { Component } from 'react';
 import { EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
-// For auto save :)
 import debounce from 'debounce';
 
 class BarstenEditor extends Component {	
@@ -18,8 +13,8 @@ class BarstenEditor extends Component {
 		super(props);
 		this.state = {
 				editorState: EditorState.createEmpty(),
+				previousRaw: null,
 				saveEditorState: debounce(this.save.bind(this), 2000)
-
 		};
 	}
 
@@ -31,10 +26,10 @@ class BarstenEditor extends Component {
 			const newState = EditorState.createWithContent(rawFromDB);
 
 			this.setState({
-				editorState: newState
+				editorState: newState,
+				previousRaw: this.props.content.editorState
 			});
 		}
-
 	}
 
 	onChange (editorState) {
@@ -47,27 +42,82 @@ class BarstenEditor extends Component {
 		}
 		if (editorState.getSelection() !== this.state.editorState.getSelection()) {
 			// selection has changed
-
 		}
-
 	}
 
 	save () {
 
 		// Send editor state to parent onChange prop
 		let rawState = convertToRaw(this.state.editorState.getCurrentContent());
+		let previousRaw = this.state.previousRaw;
+
+		// On initial previousRaw will be null
+		if (previousRaw) {
+
+			// Trash images that have been deleted from the editor
+			// For some reason, some of the images stay in the editor even if they are deleted,
+			// but they will at least be deleted if the page is deleted
+			// or when the " " where they live is removed
+
+			let newImageArray = [];
+			let oldImageArray = [];
+
+			Object.keys(rawState.entityMap).map(function(key, index) {
+				let entity = rawState.entityMap[key];
+
+				if (entity.type == "IMAGE") {
+
+					let imageId = entity.data.src.split('?');
+					imageId = imageId[0];
+					imageId = imageId.split('/');
+					imageId = imageId[2];
+
+					newImageArray.push(imageId);
+				}
+			});
+
+			Object.keys(previousRaw.entityMap).map(function(key, index) {
+				let entity = previousRaw.entityMap[key];
+
+				if (entity.type == "IMAGE") {
+
+					let imageId = entity.data.src.split('?');
+					imageId = imageId[0];
+					imageId = imageId.split('/');
+					imageId = imageId[2];
+
+					oldImageArray.push(imageId);
+				}
+			});
+
+			oldImageArray.map((image) => {
+				const notInUse = (newImageArray.indexOf(image) == -1);
+
+				if (notInUse) {
+					Meteor.call('file.toTrash', image, 'image');
+				}
+
+			});
+		}
 
 		// Add ?size=XSIZExYSIZE to image source if size is defined
 		Object.keys(rawState.entityMap).map(function(key, index) {
 			let entity = rawState.entityMap[key];
 
 			if (entity.type == "IMAGE") {
-				if (entity.data.height != 'auto' && entity.data.width != 'auto') {
-					// Remove "px" from string
-					const width = entity.data.width.slice(0, -2);
-					const height = entity.data.height.slice(0, -2);
 
-					entity.data.src = `${entity.data.src}?size=${width}x${height}`;
+				const sizePropertyExists = (entity.data.src.indexOf('?size=') != -1);
+				// Check if image already has rezise property in its src
+				if (!sizePropertyExists) {
+
+					// Check if the size was set to auto, in that case do not add size-property
+					if (entity.data.height != 'auto' && entity.data.width != 'auto') {
+						// Remove "px" from string
+						const width = entity.data.width.slice(0, -2);
+						const height = entity.data.height.slice(0, -2);
+
+						entity.data.src = `${entity.data.src}?size=${width}x${height}`;
+					}
 				}
 			}
 		});
@@ -76,12 +126,13 @@ class BarstenEditor extends Component {
 			editorState: rawState
     	});
 
+    	this.setState({
+			previousRaw: rawState
+    	});
+
 	}
 
 	uploadImageCallBack (file, e) {
-
-		console.log(file);
-		console.log(e);
 
 		return new Promise(
 			(resolve, reject) => {
@@ -109,11 +160,8 @@ class BarstenEditor extends Component {
 							contentType: false,
 							type: 'POST',
 							success: (data) => {
-
-								// const awsUrl = data.getElementsByTagName("Location")[0].innerHTML;
 								const awsKey = data.getElementsByTagName("Key")[0].innerHTML;
 
-								// Save file reference to db
 								const newFile = {
 									name: file.name,
 									awsKey: awsKey,
@@ -125,40 +173,26 @@ class BarstenEditor extends Component {
 									if (err) {
 										console.log(err);
 									} else {
-										// const bucketUrl = 'http://' + Meteor.settings.public.aws.imageBucket + '.s3-website-' + Meteor.settings.public.aws.region + '.amazonaws.com/';
-										// const size = this.props.maxImageSize ? (this.props.maxImageSize + '/') : '';
-										// const awsUrl = bucketUrl + size + res.awsKey;
-
-										// console.log(res);
-
 										const link = `/images/${res}`;
-
-										// Send response to Editor state?
 										resolve({data: {link: link}});
 									}
 								});
 							}
 						});
-						
 					}
 				});
-
 			}
 		);
-
 	}
 
 	blockStyles (contentBlock) {
-	  const type = contentBlock.getType();
-	  if (type === 'unstyled') {
-	    return 'unstyled';
-	  }
+		const type = contentBlock.getType();
+		if (type === 'unstyled') {
+			return 'unstyled';
+		}
 	}
 
 	render() {
-
-		// console.log('render');
-		// console.log(convertToRaw(this.state.editorState.getCurrentContent()));
 
 		return (
 			<div>
@@ -185,7 +219,6 @@ class BarstenEditor extends Component {
 						}
 					}
 				/>
-
 			</div>
 		);
 	}

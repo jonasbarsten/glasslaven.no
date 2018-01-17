@@ -28,6 +28,24 @@ Meteor.methods({
 			Meteor.call('file.toTrash', oldNews.image, 'image');
 		}
 
+		if (oldNews.content && oldNews.content.editorState && oldNews.content.editorState.entityMap) {
+			const entityMap = oldNews.content.editorState.entityMap;
+
+			Object.keys(entityMap).map(function(key, index) {
+				let entity = entityMap[key];
+
+				if (entity.type == "IMAGE") {
+
+					let imageId = entity.data.src.split('?');
+					imageId = imageId[0];
+					imageId = imageId.split('/');
+					imageId = imageId[2];
+
+					Meteor.call('file.toTrash', imageId, 'image');
+				}
+			});
+		}
+
 		News.remove({urlFriendlyName: urlFriendlyName});
 	},
 	'news.update': function (urlFriendlyName, content) {
