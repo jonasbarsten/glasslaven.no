@@ -55,7 +55,22 @@ class BarstenEditor extends Component {
 	save () {
 
 		// Send editor state to parent onChange prop
-		const rawState = convertToRaw(this.state.editorState.getCurrentContent());
+		let rawState = convertToRaw(this.state.editorState.getCurrentContent());
+
+		// Add ?size=XSIZExYSIZE to image source if size is defined
+		Object.keys(rawState.entityMap).map(function(key, index) {
+			let entity = rawState.entityMap[key];
+
+			if (entity.type == "IMAGE") {
+				if (entity.data.height != 'auto' && entity.data.width != 'auto') {
+					// Remove "px" from string
+					const width = entity.data.width.slice(0, -2);
+					const height = entity.data.height.slice(0, -2);
+
+					entity.data.src = `${entity.data.src}?size=${width}x${height}`;
+				}
+			}
+		});
 
 		this.props.onChange({
 			editorState: rawState
@@ -63,7 +78,10 @@ class BarstenEditor extends Component {
 
 	}
 
-	uploadImageCallBack (file) {
+	uploadImageCallBack (file, e) {
+
+		console.log(file);
+		console.log(e);
 
 		return new Promise(
 			(resolve, reject) => {
@@ -147,7 +165,7 @@ class BarstenEditor extends Component {
 
 				<div className="clearfix"></div>
 				<br />
-				<Editor 
+				<Editor
 					ref="editor"
 					placeholder="Write here ..."
 					toolbarClassName="home-toolbar"
@@ -156,7 +174,16 @@ class BarstenEditor extends Component {
 					editorState={this.state.editorState} 
 					onEditorStateChange={(editorState) => {this.onChange(editorState)}} 
 					spellCheck={true}
-					toolbar={{ image: { uploadCallback: this.uploadImageCallBack.bind(this) }}}
+					toolbar={
+						{ 
+							image: { 
+								uploadCallback: this.uploadImageCallBack.bind(this),
+								uploadEnabled: true,
+								alignmentEnabled: true,
+								inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+							}
+						}
+					}
 				/>
 
 			</div>
