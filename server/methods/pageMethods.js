@@ -10,6 +10,7 @@ Meteor.methods({
 		var page = {
 			name: pageName,
 			urlFriendlyName: urlFriendlyName,
+			online: false,
 			lastChanged: new Date,
 			lastChangedBy: Meteor.userId(),
 			views: 0,

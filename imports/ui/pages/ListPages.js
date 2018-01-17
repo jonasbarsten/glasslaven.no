@@ -27,7 +27,7 @@ class ListPages extends Component {
 					<div className="col-xs-5">
 						<h4>PUBLIC URL</h4>
 					</div>
-					<div className="col-xs-2">
+					<div className="col-xs-2 text-right">
 						<h4>ONLINE</h4>
 					</div>
 					
@@ -59,12 +59,12 @@ class ListPages extends Component {
 							</div>
 							<div className="col-xs-2">
 								<Switch
-								  onChange={this.toggleOnline.bind(this, page)}
-								  disabled={false}
-								  checkedChildren={''}
-								  unCheckedChildren={''}
-								  checked={online}
-								  style={{float: 'right'}}
+									onChange={this.toggleOnline.bind(this, page)}
+									disabled={false}
+									checkedChildren={''}
+									unCheckedChildren={''}
+									checked={online}
+									style={{float: 'right'}}
 								/>
 							</div>
 						</div>

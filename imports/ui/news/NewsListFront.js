@@ -118,7 +118,7 @@ export default withTracker(() => {
 
 	return {
 		ready: handle.ready(),
-		news: News.find().fetch()
+		news: News.find({online: true}).fetch()
 	}
 
 })(NewsListFront);

@@ -27,6 +27,18 @@ class NewsSingle extends Component {
 			return <Preloader />
 		}
 
+		if (!news.online) {
+			return (
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-8 col-sm-offset-2 text-center">
+							<h4>Denne nyhetssaken er tatt ned for øyeblikket.</h4>
+						</div>
+					</div>
+				</div>
+			);
+		}
+
 		const imageUrl = (news && news.image) ? `/images/${news.image}?size=800x800` : null;
 
 		return (

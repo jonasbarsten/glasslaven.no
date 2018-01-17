@@ -10,6 +10,7 @@ Meteor.methods({
 		var news = {
 			name: newsName,
 			urlFriendlyName: urlFriendlyName,
+			online: false,
 			lastChanged: new Date,
 			lastChangedBy: Meteor.userId(),
 			views: 0,
@@ -31,6 +32,9 @@ Meteor.methods({
 	},
 	'news.update': function (urlFriendlyName, content) {
 		News.update({urlFriendlyName: urlFriendlyName}, {$set: {content: content}});
+	},
+	'news.toggleOnline': function (news) {
+		News.update({_id: news._id}, {$set: {online: !news.online}});
 	},
 	'news.toggleInFooter': function (urlFriendlyName) {
 		const news = News.findOne({urlFriendlyName: urlFriendlyName});

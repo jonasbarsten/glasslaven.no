@@ -27,6 +27,18 @@ class PageSingle extends Component {
 			return <Preloader />
 		}
 
+		if (!page.online) {
+			return (
+				<div className="container">
+					<div className="row">
+						<div className="col-sm-8 col-sm-offset-2 text-center">
+							<h4>Denne undersiden er tatt ned for øyeblikket.</h4>
+						</div>
+					</div>
+				</div>
+			);
+		}
+
 		return (
 			<div className="container">
 				<div className="row">

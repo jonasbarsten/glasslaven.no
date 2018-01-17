@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 import { withTracker } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
+import Switch from 'rc-switch';
+
+import 'rc-switch/assets/index.css';
 
 class ListNews extends Component {
+
+	toggleOnline (news) {
+		Meteor.call('news.toggleOnline', news);
+	}
 
 	render() {
 		return (
@@ -14,11 +21,14 @@ class ListNews extends Component {
 						<h4>VIEWS</h4>
 					</div>
 					
-					<div className="col-xs-5">
+					<div className="col-xs-3">
 						<h4>EDIT</h4>
 					</div>
 					<div className="col-xs-5">
 						<h4>PUBLIC URL</h4>
+					</div>
+					<div className="col-xs-2 text-right">
+						<h4>ONLINE</h4>
 					</div>
 					
 				</div>
@@ -29,6 +39,7 @@ class ListNews extends Component {
 
 					const editUrl = '/admin/news/edit/' + news.urlFriendlyName;
 					const visitUrl = Meteor.settings.public.url + '/news/' + news.urlFriendlyName;
+					const online = news.online ? true : false;
 
 					return (
 
@@ -38,13 +49,23 @@ class ListNews extends Component {
 								<span className="label label-primary">{news.views} views</span>
 							</div>
 							
-							<div className="col-xs-5">
+							<div className="col-xs-3">
 								<Link to={editUrl}>
 									{news.name}
 								</Link>
 							</div>
 							<div className="col-xs-5">
 								<Link to={visitUrl}>{visitUrl}</Link>
+							</div>
+							<div className="col-xs-2">
+								<Switch
+									onChange={this.toggleOnline.bind(this, news)}
+									disabled={false}
+									checkedChildren={''}
+									unCheckedChildren={''}
+									checked={online}
+									style={{float: 'right'}}
+								/>
 							</div>
 							
 						</div>
