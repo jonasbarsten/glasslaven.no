@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FontAwesome from 'react-fontawesome';
 
 class FrontFooter extends Component {
 	render () {
@@ -19,17 +20,42 @@ class FrontFooter extends Component {
 							</div>
 
 							<div className="col-sm-4 text-center">
-								<span className="fade-half">
-									+47 91 34 66 33
-								</span>
-								<br />
-								<span className="fade-half">
-									<a href="mailto:post@glasslaven.no">post@glasslaven.no</a>
-								</span>
-								<br />
-								<span className="fade-half">
-									Granavollen 26 B, 2750 Gran
-								</span>
+								<div className="row">
+									<span className="fade-half">
+										+47 91 34 66 33
+									</span>
+								</div>
+								<div className="row">
+									<span className="fade-half">
+										<a href="mailto:post@glasslaven.no">post@glasslaven.no</a>
+									</span>
+								</div>
+								<div className="row">
+									<span className="fade-half">
+										Granavollen 26 B, 2750 Gran
+									</span>
+								</div>
+								<hr />
+								<div className="row">
+										<div className="col-xs-6">
+											<a href="https://facebook.com/glasslaven" target="self">
+												<FontAwesome 
+													name="facebook" 
+													size="2x"
+													style={{float: 'right'}} 
+												/>
+											</a>
+										</div>
+										<div className="col-xs-6">
+											<a href="https://www.instagram.com/glasslaven" target="self">
+												<FontAwesome 
+													name="instagram" 
+													size="2x" 
+													style={{float: 'left'}} 
+												/>
+											</a>
+										</div>
+								</div>
 							</div>
 						</div>
 					</div>
