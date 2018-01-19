@@ -31,7 +31,7 @@ class EditNews extends Component {
 			if (err) {
 				console.log(err);
 			} else {
-				Bert.alert('Content saved', 'success', 'growl-bottom-right', 'fa-smile-o');
+				Bert.alert('Lagret', 'success', 'growl-bottom-right', 'fa-smile-o');
 			}
 		});
 	}
@@ -39,13 +39,13 @@ class EditNews extends Component {
 	deleteNews () {
 
 		swal({
-			title: 'Are you sure?',
-			text: "You will not be able to recover this news!",
+			title: 'Slette nyhet',
+			text: "Du kan ikke angre på dette.",
 			type: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Yes, delete it!'
+			confirmButtonText: 'Ja, slett!'
 		}).then((result) => {
 			if (result.value) {
 				Meteor.call('news.delete', this.props.params.urlFriendlyName, (err, res) => {
@@ -54,7 +54,7 @@ class EditNews extends Component {
 						swal("Failed", "The news could not be deleted.", "warning");
 					} else {
 						browserHistory.goBack();
-						Bert.alert('news deleted', 'success', 'growl-bottom-right', 'fa-smile-o');
+						Bert.alert('Nyhet slettet', 'success', 'growl-bottom-right', 'fa-smile-o');
 					}
 				});
 			}
